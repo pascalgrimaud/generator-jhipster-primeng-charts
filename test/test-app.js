@@ -21,7 +21,7 @@ describe('JHipster generator primeng-charts', () => {
                     testmode: true
                 })
                 .withPrompts({
-                    message: 'simple message to say hello'
+                    confirmation: true
                 })
                 .withGenerators(deps)
                 .on('end', done);
