@@ -1,0 +1,34 @@
+{
+    "dashboard": {
+        "barchart" : {
+            "home": {
+                "title": "BarChart"
+            }
+        },
+        "doughnutchart" : {
+            "home": {
+                "title": "DoughnutChart"
+            }
+        },
+        "linechart" : {
+            "home": {
+                "title": "LineChart"
+            }
+        },
+        "piechart" : {
+            "home": {
+                "title": "PieChart"
+            }
+        },
+        "polarareachart" : {
+            "home": {
+                "title": "PolarAreaChart"
+            }
+        },
+        "radarchart" : {
+            "home": {
+                "title": "RadarChart"
+            }
+        }
+    }
+}

@@ -1,2 +1,0 @@
-hello primeng-charts!
-It's dummy.txt

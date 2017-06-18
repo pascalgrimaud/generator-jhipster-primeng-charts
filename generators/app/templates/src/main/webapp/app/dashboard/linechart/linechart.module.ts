@@ -5,12 +5,12 @@ import { <%= angular2AppName %>SharedModule } from '../../shared';
 import { ChartModule } from 'primeng/primeng';
 
 import {
-    PiechartComponent,
-    piechartRoute
+    LinechartComponent,
+    linechartRoute
 } from './';
 
 const DASHBOARD_STATES = [
-    piechartRoute
+    linechartRoute
 ];
 
 @NgModule({
@@ -20,8 +20,8 @@ const DASHBOARD_STATES = [
         RouterModule.forRoot(DASHBOARD_STATES, { useHash: true })
     ],
     declarations: [
-        PiechartComponent
+        LinechartComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class <%= angular2AppName %>PiechartModule {}
+export class <%= angular2AppName %>LinechartModule {}

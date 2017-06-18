@@ -7,7 +7,7 @@ export const piechartRoute: Route = {
     component: PiechartComponent,
     data: {
         authorities: ['ROLE_USER'],
-        pageTitle: 'piechart.home.title'
+        pageTitle: 'dashboard.piechart.home.title'
     },
     canActivate: [UserRouteAccessService]
 };

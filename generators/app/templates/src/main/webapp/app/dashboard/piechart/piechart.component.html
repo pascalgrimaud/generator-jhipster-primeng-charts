@@ -1,6 +1,6 @@
 <div>
     <h2>
-        <span jhiTranslate="piechart.home.title">Pie Chart</span>
+        <span<% if (enableTranslation) { %> jhiTranslate="dashboard.piechart.home.title"<% } %>>PieChart</span>
     </h2>
     <div class="col-md-4 content-section implementation">
         <p-chart type="pie" [data]="data"></p-chart>
