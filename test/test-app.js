@@ -48,6 +48,10 @@ const expectedFiles = {
         'src/main/webapp/app/dashboard/radarchart/radarchart.component.ts',
         'src/main/webapp/app/dashboard/radarchart/radarchart.module.ts',
         'src/main/webapp/app/dashboard/radarchart/radarchart.route.ts'
+    ],
+    translation: [
+        'src/main/webapp/i18n/en/dashboard.json',
+        'src/main/webapp/i18n/fr/dashboard.json'
     ]
 };
 
@@ -71,6 +75,7 @@ describe('JHipster generator primeng-charts', () => {
 
         it('generate all dashboard files', () => {
             assert.file(expectedFiles.dashboard);
+            assert.file(expectedFiles.translation);
         });
     });
 
@@ -93,6 +98,7 @@ describe('JHipster generator primeng-charts', () => {
 
         it('generate all dashboard files', () => {
             assert.file(expectedFiles.dashboard);
+            assert.noFile(expectedFiles.translation);
         });
     });
 });
