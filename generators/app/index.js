@@ -3,9 +3,9 @@ const chalk = require('chalk');
 const generator = require('yeoman-generator');
 const packagejs = require('../../package.json');
 const shelljs = require('shelljs');
-const fs = require('fs');
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
 const jhipsterUtils = require('generator-jhipster/generators/util');
+
 const JhipsterGenerator = generator.extend({});
 util.inherits(JhipsterGenerator, BaseGenerator);
 
@@ -16,6 +16,16 @@ const jhipsterVar = { moduleName: 'primeng-charts' };
 const jhipsterFunc = {};
 
 module.exports = JhipsterGenerator.extend({
+    _getConfig() {
+        const fromPath = '.yo-rc.json';
+        if (shelljs.test('-f', fromPath)) {
+            const fileData = this.fs.readJSON(fromPath);
+            if (fileData && fileData['generator-jhipster']) {
+                return fileData['generator-jhipster'];
+            }
+        }
+        return false;
+    },
 
     initializing: {
         compose() {
@@ -28,22 +38,10 @@ module.exports = JhipsterGenerator.extend({
             // Have Yeoman greet the user.
             this.log(`Welcome to the ${chalk.bold.yellow('JHipster primeng-charts')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
         },
-        checkclientFramework: function () {
-            if (jhipsterVar.clientFramework !== 'angular2') {
-                this.env.error(chalk.red.bold('ERROR!') + ' This module works only for Angular2\n');
+        checkclientFramework() {
+            if (this._getConfig().clientFramework !== 'angular2') {
+                this.env.error(`${chalk.red.bold('ERROR!')} This module works only for Angular2\n`);
             }
-        }
-    },
-
-    _getConfig() {
-        const fromPath = '.yo-rc.json';
-        if (shelljs.test('-f', fromPath)) {
-            const fileData = this.fs.readJSON(fromPath);
-            if (fileData && fileData['generator-jhipster']) {
-                return fileData['generator-jhipster'];
-            } else return false;
-        } else {
-            return false;
         }
     },
 
@@ -78,36 +76,15 @@ module.exports = JhipsterGenerator.extend({
             );
         };
 
-        console.log('==========================>'+this.config.get('baseName'));
-
         this.enableTranslation = config.enableTranslation;
         this.languages = config.languages;
-        this.angular2AppName = jhipsterVar.angular2AppName;
+        this.baseName = config.baseName;
+        this.clientFramework = config.clientFramework;
+        this.angular2AppName = this.getAngular2AppName();
 
-
-        this.baseName = jhipsterVar.baseName;
-        this.packageName = jhipsterVar.packageName;
-        this.angularAppName = jhipsterVar.angularAppName;
-        this.clientFramework = jhipsterVar.clientFramework;
-        this.clientPackageManager = jhipsterVar.clientPackageManager;
-        const javaDir = jhipsterVar.javaDir;
-        const resourceDir = jhipsterVar.resourceDir;
-        const webappDir = jhipsterVar.webappDir;
-        this.enableTranslation = jhipsterVar.enableTranslation;
-
-        this.message = this.props.message;
-
-        this.log('\n--- some config read from config ---');
-        this.log(`baseName=${config.baseName}`);
-        this.log(`packageName=${config.packageName}`);
-        this.log(`angularAppName=${config.angularAppName}`);
-        this.log(`clientFramework=${config.clientFramework}`);
-        this.log(`clientPackageManager=${config.clientPackageManager}`);
-        this.log(`javaDir=${javaDir}`);
-        this.log(`resourceDir=${resourceDir}`);
-        this.log(`webappDir=${webappDir}`);
-        this.log(`\nmessage=${this.message}`);
-        this.log('------\n');
+        // const javaDir = jhipsterVar.javaDir;
+        // const resourceDir = jhipsterVar.resourceDir;
+        // const webappDir = jhipsterVar.webappDir;
 
         // add dependencies
         // see utils.js -> rewriteJSONFile, with 2 tab ?
@@ -116,7 +93,7 @@ module.exports = JhipsterGenerator.extend({
         this.addNpmDependency('primeng', '4.0.1');
 
         // add module to app.module.ts
-        this.addAngularModule(jhipsterVar.angular2AppName, 'Dashboard', 'dashboard', 'dashboard', this.enableTranslation, this.clientFramework);
+        this.addAngularModule(this.angular2AppName, 'Dashboard', 'dashboard', 'dashboard', this.enableTranslation, this.clientFramework);
 
         // add element to menu
         let dashboardMenu;
@@ -227,12 +204,12 @@ module.exports = JhipsterGenerator.extend({
         jhipsterUtils.rewriteFile({
             file: 'src/main/webapp/app/vendor.ts',
             needle: 'jhipster-needle-add-element-to-vendor',
-            splicable: [`import 'chart.js/src/chart.js';`]
+            splicable: ['import \'chart.js/src/chart.js\';']
         }, this);
 
         // copy all translations
         if (this.enableTranslation) {
-            const trad = `"dashboard": {
+            const dashboardTranslation = `"dashboard": {
                 "main": "Dashboard",
                 "barchart": "BarChart",
                 "doughnutchart": "DoughnutChart",
@@ -242,17 +219,16 @@ module.exports = JhipsterGenerator.extend({
                 "radarchart": "RadarChart"
             },`;
             this.languages.forEach((language) => {
-                // this.addElementTranslationKey('dashboard',`${trad}`,language);
-                this.template(`src/main/webapp/i18n/en/dashboard.json`, `src/main/webapp/i18n/${language}/dashboard.json`);
+                this.template('src/main/webapp/i18n/en/dashboard.json', `src/main/webapp/i18n/${language}/dashboard.json`);
                 jhipsterUtils.rewriteFile({
                     file: `src/main/webapp/i18n/${language}/global.json`,
                     needle: 'jhipster-needle-menu-add-element',
-                    splicable: [`${trad}`]
+                    splicable: [`${dashboardTranslation}`]
                 }, this);
             });
         }
 
-        // copy all files
+        // copy all dashboard files
         this.template('src/main/webapp/app/dashboard/dashboard.module.ts', 'src/main/webapp/app/dashboard/dashboard.module.ts');
 
         this.template('src/main/webapp/app/dashboard/barchart/index.ts', 'src/main/webapp/app/dashboard/barchart/index.ts');
@@ -293,9 +269,7 @@ module.exports = JhipsterGenerator.extend({
     },
 
     install() {
-        let logMsg =
-            `To install your dependencies manually, run: ${chalk.yellow.bold(`${this.clientPackageManager} install`)}`;
-
+        const logMsg = `To install your dependencies manually, run: ${chalk.yellow.bold(`${this.clientPackageManager} install`)}`;
         const injectDependenciesAndConstants = (err) => {
             if (err) {
                 this.warning('Install of dependencies failed!');

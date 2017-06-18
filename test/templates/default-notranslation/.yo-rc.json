@@ -28,11 +28,7 @@
     "applicationType": "monolith",
     "testFrameworks": [],
     "jhiPrefix": "jhi",
-    "enableTranslation": true,
-    "nativeLanguage": "en",
-    "languages": [
-      "en",
-      "fr"
-    ]
+    "enableTranslation": false,
+    "nativeLanguage": "en"
   }
 }
