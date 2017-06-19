@@ -80,6 +80,7 @@ module.exports = JhipsterGenerator.extend({
         this.languages = config.languages;
         this.baseName = config.baseName;
         this.clientFramework = config.clientFramework;
+        this.clientPackageManager = config.clientPackageManager
         this.angular2AppName = this.getAngular2AppName();
 
         // const javaDir = jhipsterVar.javaDir;
@@ -109,37 +110,37 @@ module.exports = JhipsterGenerator.extend({
                 <ul class="dropdown-menu" ngbDropdownMenu>
                     <li uiSrefActive="active">
                         <a class="dropdown-item" routerLink="barchart" routerLinkActive="active" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <i class="fa fa-fw fa-bar-chart" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.dashboard.barchart">BarChart</span>
                         </a>
                     </li>
                     <li uiSrefActive="active">
                         <a class="dropdown-item" routerLink="doughnutchart" routerLinkActive="active" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <i class="fa fa-fw fa-circle-o-notch" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.dashboard.doughnutchart">BarChart</span>
                         </a>
                     </li>
                     <li uiSrefActive="active">
                         <a class="dropdown-item" routerLink="linechart" routerLinkActive="active" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <i class="fa fa-fw fa-line-chart" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.dashboard.linechart">LineChart</span>
                         </a>
                     </li>
                     <li uiSrefActive="active">
                         <a class="dropdown-item" routerLink="piechart" routerLinkActive="active" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <i class="fa fa-fw fa-pie-chart" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.dashboard.piechart">PieChart</span>
                         </a>
                     </li>
                     <li uiSrefActive="active">
                         <a class="dropdown-item" routerLink="polarareachart" routerLinkActive="active" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <i class="fa fa-fw fa-bullseye" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.dashboard.polarareachart">PolarAreaChart</span>
                         </a>
                     </li>
                     <li uiSrefActive="active">
                         <a class="dropdown-item" routerLink="radarchart" routerLinkActive="active" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <i class="fa fa-fw fa-star-o" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.dashboard.radarchart">RadarChart</span>
                         </a>
                     </li>
@@ -157,37 +158,37 @@ module.exports = JhipsterGenerator.extend({
                 <ul class="dropdown-menu" ngbDropdownMenu>
                     <li uiSrefActive="active">
                         <a class="dropdown-item" routerLink="barchart" routerLinkActive="active" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <i class="fa fa-fw fa-bar-chart" aria-hidden="true"></i>
                             <span>BarChart</span>
                         </a>
                     </li>
                     <li uiSrefActive="active">
                         <a class="dropdown-item" routerLink="doughnutchart" routerLinkActive="active" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <i class="fa fa-fw fa-circle-o-notch" aria-hidden="true"></i>
                             <span>DoughnutChart</span>
                         </a>
                     </li>
                     <li uiSrefActive="active">
                         <a class="dropdown-item" routerLink="linechart" routerLinkActive="active" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <i class="fa fa-fw fa-line-chart" aria-hidden="true"></i>
                             <span>LineChart</span>
                         </a>
                     </li>
                     <li uiSrefActive="active">
                         <a class="dropdown-item" routerLink="piechart" routerLinkActive="active" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <i class="fa fa-fw fa-pie-chart" aria-hidden="true"></i>
                             <span>PieChart</span>
                         </a>
                     </li>
                     <li uiSrefActive="active">
                         <a class="dropdown-item" routerLink="polarareachart" routerLinkActive="active" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <i class="fa fa-fw fa-bullseye" aria-hidden="true"></i>
                             <span>PolarAreaChart</span>
                         </a>
                     </li>
                     <li uiSrefActive="active">
                         <a class="dropdown-item" routerLink="radarchart" routerLinkActive="active" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <i class="fa fa-fw fa-star-o" aria-hidden="true"></i>
                             <span>RadarChart</span>
                         </a>
                     </li>
