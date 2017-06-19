@@ -15,6 +15,9 @@
 # Introduction
 
 This is a [JHipster](http://jhipster.github.io/) module, that is meant to be used in a JHipster application.
+
+The minimum required version of JHipster is **>=4.5.5**.
+
 This module is used to generate some charts, using [PrimeNG](https://www.primefaces.org/primeng).
 See the official documentation here: https://www.primefaces.org/primeng/#/chart
 
