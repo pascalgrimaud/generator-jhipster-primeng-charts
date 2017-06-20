@@ -7,7 +7,7 @@
     <img src="https://raw.githubusercontent.com/jhipster/jhipster.github.io/master/images/logo/logo-jhipster.png">
   </a>
   <a href="https://www.primefaces.org/primeng">
-    <img width=120px src="https://camo.githubusercontent.com/75016fdcf414b0171a1624dee48f8ec5166417f9/68747470733a2f2f7777772e7072696d6566616365732e6f72672f7072696d656e672f73686f77636173652f7265736f75726365732f696d616765732f7072696d656e672d736964656261722e737667">
+    <img width=120px src="https://pbs.twimg.com/profile_images/782907169414979584/i2fYktgo.jpg">
   </a>
 </div>
 
