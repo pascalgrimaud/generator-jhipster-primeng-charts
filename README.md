@@ -29,6 +29,11 @@ The generated charts comes directly from PrimeNG:
 - [PolarAreaChart](https://www.primefaces.org/primeng/#/chart/polararea)
 - [RadarChart](https://www.primefaces.org/primeng/#/chart/radar)
 
+<div align="center">
+    <img src="https://raw.githubusercontent.com/pascalgrimaud/generator-jhipster-primeng-charts/master/images/jhipster-primeng-charts.png">
+</div>
+
+
 # Prerequisites
 
 As this is a [JHipster](http://jhipster.github.io/) module, we expect you have JHipster and its related tools already installed:
