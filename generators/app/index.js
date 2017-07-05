@@ -5,35 +5,18 @@ const packagejs = require('../../package.json');
 const semver = require('semver');
 const shelljs = require('shelljs');
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
-const jhipsterUtils = require('generator-jhipster/generators/util');
+const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
 
 const JhipsterGenerator = generator.extend({});
 util.inherits(JhipsterGenerator, BaseGenerator);
 
-// Stores JHipster variables
-const jhipsterVar = { moduleName: 'primeng-charts' };
-
-// Stores JHipster functions
-const jhipsterFunc = {};
-
 module.exports = JhipsterGenerator.extend({
-    _getConfig() {
-        const fromPath = '.yo-rc.json';
-        if (shelljs.test('-f', fromPath)) {
-            const fileData = this.fs.readJSON(fromPath);
-            if (fileData && fileData['generator-jhipster']) {
-                return fileData['generator-jhipster'];
-            }
-        }
-        return false;
-    },
-
     initializing: {
-        compose() {
-            this.composeWith('jhipster:modules',
-                { jhipsterVar, jhipsterFunc },
-                this.options.testmode ? { local: require.resolve('generator-jhipster/generators/modules') } : null
-            );
+        readConfig() {
+            this.jhipsterAppConfig = this.getJhipsterAppConfig();
+            if (!this.jhipsterAppConfig) {
+                this.error('Can\'t read .yo-rc.json');
+            }
         },
         displayLogo() {
             // Have Yeoman greet the user.
@@ -47,12 +30,12 @@ module.exports = JhipsterGenerator.extend({
             this.log(`\nWelcome to the ${chalk.bold.yellow('JHipster primeng-charts')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
         },
         checkclientFramework() {
-            if (this._getConfig().clientFramework !== 'angular2') {
+            if (this.jhipsterAppConfig.clientFramework !== 'angular2' && this.jhipsterAppConfig.clientFramework !== 'angularX') {
                 this.env.error(`${chalk.red.bold('ERROR!')} This module works only for Angular2...`);
             }
         },
         checkJhipster() {
-            const jhipsterVersion = this._getConfig().jhipsterVersion;
+            const jhipsterVersion = this.jhipsterAppConfig.jhipsterVersion;
             const minimumJhipsterVersion = packagejs.dependencies['generator-jhipster'];
             if (!semver.satisfies(jhipsterVersion, minimumJhipsterVersion)) {
                 this.warning(`\nYour generated project used an old JHipster version (${jhipsterVersion})... you need at least (${minimumJhipsterVersion})\n`);
@@ -83,8 +66,6 @@ module.exports = JhipsterGenerator.extend({
             return;
         }
 
-        const config = this._getConfig();
-
         // function to use directly template
         this.template = function (source, destination) {
             this.fs.copyTpl(
@@ -96,11 +77,13 @@ module.exports = JhipsterGenerator.extend({
 
         // init all variables
         this.anyError = false;
-        this.enableTranslation = config.enableTranslation;
-        this.languages = config.languages;
-        this.baseName = config.baseName;
-        this.clientFramework = config.clientFramework;
-        this.clientPackageManager = config.clientPackageManager;
+
+        this.enableTranslation = this.jhipsterAppConfig.enableTranslation;
+        this.languages = this.jhipsterAppConfig.languages;
+        this.baseName = this.jhipsterAppConfig.baseName;
+        this.clientFramework = this.jhipsterAppConfig.clientFramework;
+        this.clientPackageManager = this.jhipsterAppConfig.clientPackageManager;
+        this.protractorTests = this.jhipsterAppConfig.testFrameworks.indexOf('protractor') !== -1;
         this.angular2AppName = this.getAngular2AppName();
 
         // add dependencies
@@ -232,11 +215,10 @@ module.exports = JhipsterGenerator.extend({
             </li>`;
         }
         try {
-            jhipsterUtils.rewriteFile({
-                file: 'src/main/webapp/app/layouts/navbar/navbar.component.html',
-                needle: 'jhipster-needle-add-element-to-menu',
-                splicable: [`${dashboardMenu}`]
-            }, this);
+            this.rewriteFile(
+                'src/main/webapp/app/layouts/navbar/navbar.component.html',
+                'jhipster-needle-add-element-to-menu',
+                `${dashboardMenu}`);
         } catch (e) {
             this.log(`${chalk.red.bold('ERROR!')}`);
             this.log('  Missing needle \'jhipster-needle-add-element-to-menu\' in src/main/webapp/app/layouts/navbar/navbar.component.html');
@@ -246,13 +228,31 @@ module.exports = JhipsterGenerator.extend({
             this.anyError = true;
         }
 
+        // add protractor tests
+        if (this.protractorTests) {
+            let dashboardSpec = `'./e2e/dashboard/dashboard.spec.ts',`;
+            try {
+                this.rewriteFile(
+                    'src/test/javascript/protractor.conf.js',
+                    'jhipster-needle-add-protractor-tests',
+                    `${dashboardSpec}`);
+            } catch (e) {
+                this.log(`${chalk.red.bold('ERROR!')}`);
+                this.log('  Missing needle \'jhipster-needle-add-protractor-tests\' in src/test/javascript/protractor.conf.js');
+                this.log('  You need to add manually in specs item:\n');
+                this.log(`            ${dashboardSpec}`);
+                this.log('');
+                this.anyError = true;
+            }
+            this.template('src/test/javascript/e2e/dashboard/_dashboard.spec.ts', 'src/test/javascript/e2e/dashboard/dashboard.spec.ts');
+        }
+
         // add chart to vendor
         try {
-            jhipsterUtils.rewriteFile({
-                file: 'src/main/webapp/app/vendor.ts',
-                needle: 'jhipster-needle-add-element-to-vendor',
-                splicable: ['import \'chart.js/src/chart.js\';']
-            }, this);
+            this.rewriteFile(
+                'src/main/webapp/app/vendor.ts',
+                'jhipster-needle-add-element-to-vendor',
+                'import \'chart.js/src/chart.js\';');
         } catch (e) {
             this.log(`${chalk.red.bold('ERROR!')}`);
             this.log('  Missing needle \'jhipster-needle-add-element-to-vendor\' in src/main/webapp/app/vendor.ts');
@@ -276,11 +276,10 @@ module.exports = JhipsterGenerator.extend({
             this.languages.forEach((language) => {
                 this.template('src/main/webapp/i18n/en/dashboard.json', `src/main/webapp/i18n/${language}/dashboard.json`);
                 try {
-                    jhipsterUtils.rewriteFile({
-                        file: `src/main/webapp/i18n/${language}/global.json`,
-                        needle: 'jhipster-needle-menu-add-element',
-                        splicable: [`${dashboardTranslation}`]
-                    }, this);
+                    this.rewriteFile(
+                        `src/main/webapp/i18n/${language}/global.json`,
+                        'jhipster-needle-menu-add-element',
+                        `${dashboardTranslation}`);
                 } catch (e) {
                     this.log(`${chalk.red.bold('ERROR!')}`);
                     this.log(`  Missing needle 'jhipster-needle-menu-add-element' in src/main/webapp/i18n/${language}/global.json`);

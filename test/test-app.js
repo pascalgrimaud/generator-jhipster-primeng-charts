@@ -52,6 +52,9 @@ const expectedFiles = {
     translation: [
         'src/main/webapp/i18n/en/dashboard.json',
         'src/main/webapp/i18n/fr/dashboard.json'
+    ],
+    protractor: [
+        'src/test/javascript/e2e/dashboard/dashboard.spec.ts'
     ]
 };
 
@@ -76,6 +79,7 @@ describe('JHipster generator primeng-charts', () => {
         it('generate all dashboard files', () => {
             assert.file(expectedFiles.dashboard);
             assert.file(expectedFiles.translation);
+            assert.noFile(expectedFiles.protractor);
         });
     });
 
@@ -84,7 +88,7 @@ describe('JHipster generator primeng-charts', () => {
             helpers
                 .run(path.join(__dirname, '../generators/app'))
                 .inTmpDir((dir) => {
-                    fse.copySync(path.join(__dirname, '../test/templates/default-notranslation'), dir);
+                    fse.copySync(path.join(__dirname, '../test/templates/notranslation'), dir);
                 })
                 .withOptions({
                     testmode: true
@@ -99,6 +103,31 @@ describe('JHipster generator primeng-charts', () => {
         it('generate all dashboard files', () => {
             assert.file(expectedFiles.dashboard);
             assert.noFile(expectedFiles.translation);
+            assert.noFile(expectedFiles.protractor);
+        });
+    });
+
+    describe('With protractor', () => {
+        beforeEach((done) => {
+            helpers
+                .run(path.join(__dirname, '../generators/app'))
+                .inTmpDir((dir) => {
+                    fse.copySync(path.join(__dirname, '../test/templates/protractor'), dir);
+                })
+                .withOptions({
+                    testmode: true
+                })
+                .withPrompts({
+                    confirmation: true
+                })
+                .withGenerators(deps)
+                .on('end', done);
+        });
+
+        it('generate all dashboard files', () => {
+            assert.file(expectedFiles.dashboard);
+            assert.noFile(expectedFiles.translation);
+            assert.file(expectedFiles.protractor);
         });
     });
 });
