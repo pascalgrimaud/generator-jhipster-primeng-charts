@@ -46,7 +46,7 @@ describe('administration', () => {
     it('should load DoughnutChart', () => {
         element(by.css('[routerLink="doughnutchart"]')).click();
         <%_ if (enableTranslation) { _%>
-        const expect1 = /dashboard.doughtnutchart.home.title/;
+        const expect1 = /dashboard.doughnutchart.home.title/;
         <%_ } else { _%>
         const expect1 = /DoughnutChart/;
         <%_ } _%>
