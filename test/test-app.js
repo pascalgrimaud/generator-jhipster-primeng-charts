@@ -126,6 +126,30 @@ describe('JHipster generator primeng-charts', () => {
 
         it('generate all dashboard files', () => {
             assert.file(expectedFiles.dashboard);
+            assert.file(expectedFiles.translation);
+            assert.file(expectedFiles.protractor);
+        });
+    });
+
+    describe('With protractor and no translation', () => {
+        beforeEach((done) => {
+            helpers
+                .run(path.join(__dirname, '../generators/app'))
+                .inTmpDir((dir) => {
+                    fse.copySync(path.join(__dirname, '../test/templates/protractor-notranslation'), dir);
+                })
+                .withOptions({
+                    testmode: true
+                })
+                .withPrompts({
+                    confirmation: true
+                })
+                .withGenerators(deps)
+                .on('end', done);
+        });
+
+        it('generate all dashboard files', () => {
+            assert.file(expectedFiles.dashboard);
             assert.noFile(expectedFiles.translation);
             assert.file(expectedFiles.protractor);
         });
