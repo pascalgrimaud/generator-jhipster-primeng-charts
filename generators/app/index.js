@@ -3,9 +3,7 @@ const chalk = require('chalk');
 const generator = require('yeoman-generator');
 const packagejs = require('../../package.json');
 const semver = require('semver');
-const shelljs = require('shelljs');
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
-const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
 
 const JhipsterGenerator = generator.extend({});
 util.inherits(JhipsterGenerator, BaseGenerator);
@@ -230,7 +228,7 @@ module.exports = JhipsterGenerator.extend({
 
         // add protractor tests
         if (this.protractorTests) {
-            let dashboardSpec = `'./e2e/dashboard/dashboard.spec.ts',`;
+            const dashboardSpec = '\'./e2e/dashboard/dashboard.spec.ts\',';
             try {
                 this.rewriteFile(
                     'src/test/javascript/protractor.conf.js',
