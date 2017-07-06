@@ -86,9 +86,9 @@ module.exports = JhipsterGenerator.extend({
 
         // add dependencies
         try {
-            this.addNpmDependency('@angular/animations', '4.1.3');
-            this.addNpmDependency('chart.js', '2.5.0');
-            this.addNpmDependency('primeng', '4.0.1');
+            this.addNpmDependency('@angular/animations', '4.2.4');
+            this.addNpmDependency('chart.js', '2.6.0');
+            this.addNpmDependency('primeng', '4.0.3');
         } catch (e) {
             this.log(`${chalk.red.bold('ERROR!')}`);
             this.log('  Problem when adding the new librairies in your package.json');
