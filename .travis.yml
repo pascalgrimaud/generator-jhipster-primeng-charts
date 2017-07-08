@@ -3,7 +3,15 @@ os:
 language: node_js
 node_js:
     - "6.11.0"
+jdk:
+  - oraclejdk8
 before_install:
+    - jdk_switcher use oraclejdk8
+    - java -version
+    - sudo /etc/init.d/mysql stop
+    - sudo /etc/init.d/postgresql stop
+    - export DISPLAY=:99.0
+    - sh -e /etc/init.d/xvfb start
     - npm install -g npm
     - npm install -g yarn
     - yarn global add yo
