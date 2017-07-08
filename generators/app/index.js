@@ -343,7 +343,7 @@ module.exports = JhipsterGenerator.extend({
     },
 
     install() {
-        if (!this.props.confirmation) {
+        if (this.defaultOption === undefined && !this.props.confirmation) {
             return;
         }
         if (!this.anyError) {
