@@ -12,6 +12,9 @@ cache:
         - $HOME/.m2
         - $HOME/.gradle
         - $HOME/.yarn-cache
+env:
+    global:
+        - SPRING_OUTPUT_ANSI_ENABLED=ALWAYS
 before_install:
     - java -version
     - sudo /etc/init.d/mysql stop
@@ -29,10 +32,11 @@ install:
 script:
     - git clone https://github.com/jhipster/jhipster-sample-app-ng2.git
     - cd jhipster-sample-app-ng2
+    - yarn install
     - yarn link generator-jhipster-primeng-charts
     - yo jhipster-primeng-charts --default --force
     - yarn run webpack:build
-    - ./mvnw package
+    - ./mvnw package -DskipTests
     - java -jar target/*.war &
     - sleep 40
     - yarn e2e
