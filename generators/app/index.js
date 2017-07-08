@@ -9,6 +9,18 @@ const JhipsterGenerator = generator.extend({});
 util.inherits(JhipsterGenerator, BaseGenerator);
 
 module.exports = JhipsterGenerator.extend({
+    constructor: function (...args) { // eslint-disable-line object-shorthand
+        generator.apply(this, args);
+
+        this.option('default', {
+            type: String,
+            required: false,
+            description: 'default option'
+        });
+
+        this.defaultOption = this.options.default;
+    },
+
     initializing: {
         readConfig() {
             this.jhipsterAppConfig = this.getJhipsterAppConfig();
@@ -42,7 +54,6 @@ module.exports = JhipsterGenerator.extend({
     },
 
     prompting() {
-        const done = this.async();
         const prompts = [
             {
                 type: 'confirm',
@@ -51,16 +62,18 @@ module.exports = JhipsterGenerator.extend({
                 default: true
             }
         ];
-
-        this.prompt(prompts).then((props) => {
-            this.props = props;
-            // To access props later use this.props.someOption;
-            done();
-        });
+        if (!this.defaultOption) {
+            const done = this.async();
+            this.prompt(prompts).then((props) => {
+                this.props = props;
+                // To access props later use this.props.someOption;
+                done();
+            });
+        }
     },
 
     writing() {
-        if (!this.props.confirmation) {
+        if (this.defaultOption === undefined && !this.props.confirmation) {
             return;
         }
 

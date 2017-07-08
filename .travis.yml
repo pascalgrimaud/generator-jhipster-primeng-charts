@@ -6,9 +6,19 @@ node_js:
 before_install:
     - npm install -g npm
     - npm install -g yarn
+    - yarn global add yo
 install:
     - yarn install
     - yarn link
-script:
     - gulp eslint
     - gulp test
+script:
+    - git clone https://github.com/jhipster/jhipster-sample-app-ng2.git
+    - cd jhipster-sample-app-ng2
+    - yarn link generator-jhipster-primeng-charts
+    - yo jhipster-primeng-charts --default --force
+    - yarn run webpack:build
+    - ./mvnw package
+    - java -jar target/*.war &
+    - sleep 40
+    - yarn e2e
