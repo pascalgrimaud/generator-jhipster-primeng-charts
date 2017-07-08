@@ -5,6 +5,11 @@ node_js:
     - "6.11.0"
 jdk:
   - oraclejdk8
+cache:
+    directories:
+        - $HOME/.m2
+        - $HOME/.gradle
+        - $HOME/.yarn-cache
 before_install:
     - jdk_switcher use oraclejdk8
     - java -version
