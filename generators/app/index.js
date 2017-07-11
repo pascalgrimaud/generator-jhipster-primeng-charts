@@ -4,6 +4,7 @@ const generator = require('yeoman-generator');
 const packagejs = require('../../package.json');
 const semver = require('semver');
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
+const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
 
 const JhipsterGenerator = generator.extend({});
 util.inherits(JhipsterGenerator, BaseGenerator);
@@ -106,9 +107,9 @@ module.exports = JhipsterGenerator.extend({
             this.log(`${chalk.red.bold('ERROR!')}`);
             this.log('  Problem when adding the new librairies in your package.json');
             this.log('  You need to add manually:\n');
-            this.log('  "@angular/animations": "4.1.3",');
-            this.log('  "chart.js": "2.5.0",');
-            this.log('  "primeng": "4.0.1"');
+            this.log('  "@angular/animations": "4.2.4",');
+            this.log('  "chart.js": "2.6.0",');
+            this.log('  "primeng": "4.0.3"');
             this.log('');
             this.anyError = true;
         }
