@@ -353,6 +353,9 @@ module.exports = JhipsterGenerator.extend({
                     this.warning('Install of dependencies failed!');
                     this.log(logMsg);
                 }
+                if (this.clientFramework === 'angular2' || this.clientFramework === 'angularX') {
+                    this.spawnCommandSync(this.clientPackageManager, ['run', 'webpack:build']);
+                }
             };
             const installConfig = {
                 bower: false,
