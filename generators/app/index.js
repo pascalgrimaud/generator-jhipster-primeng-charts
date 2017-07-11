@@ -98,6 +98,9 @@ module.exports = JhipsterGenerator.extend({
         this.protractorTests = this.jhipsterAppConfig.testFrameworks.indexOf('protractor') !== -1;
         this.angular2AppName = this.getAngular2AppName();
 
+        const CLIENT_MAIN_SRC_DIR = jhipsterConstants.CLIENT_MAIN_SRC_DIR;
+        const CLIENT_TEST_SRC_DIR = jhipsterConstants.CLIENT_TEST_SRC_DIR;
+
         // add dependencies
         try {
             this.addNpmDependency('@angular/animations', '4.2.4');
@@ -228,12 +231,12 @@ module.exports = JhipsterGenerator.extend({
         }
         try {
             this.rewriteFile(
-                'src/main/webapp/app/layouts/navbar/navbar.component.html',
+                `${CLIENT_MAIN_SRC_DIR}app/layouts/navbar/navbar.component.html`,
                 'jhipster-needle-add-element-to-menu',
                 `${dashboardMenu}`);
         } catch (e) {
             this.log(`${chalk.red.bold('ERROR!')}`);
-            this.log('  Missing needle \'jhipster-needle-add-element-to-menu\' in src/main/webapp/app/layouts/navbar/navbar.component.html');
+            this.log(`  Missing needle 'jhipster-needle-add-element-to-menu' in ${CLIENT_MAIN_SRC_DIR}app/layouts/navbar/navbar.component.html`);
             this.log('  You need to add manually the menu:\n');
             this.log(`            ${dashboardMenu}`);
             this.log('');
@@ -245,29 +248,29 @@ module.exports = JhipsterGenerator.extend({
             const dashboardSpec = '\'./e2e/dashboard/dashboard.spec.ts\',';
             try {
                 this.rewriteFile(
-                    'src/test/javascript/protractor.conf.js',
+                    `${CLIENT_TEST_SRC_DIR}protractor.conf.js`,
                     'jhipster-needle-add-protractor-tests',
                     `${dashboardSpec}`);
             } catch (e) {
                 this.log(`${chalk.red.bold('ERROR!')}`);
-                this.log('  Missing needle \'jhipster-needle-add-protractor-tests\' in src/test/javascript/protractor.conf.js');
+                this.log(`  Missing needle 'jhipster-needle-add-protractor-tests' in ${CLIENT_MAIN_SRC_DIR}protractor.conf.js`);
                 this.log('  You need to add manually in specs item:\n');
                 this.log(`            ${dashboardSpec}`);
                 this.log('');
                 this.anyError = true;
             }
-            this.template('src/test/javascript/e2e/dashboard/_dashboard.spec.ts', 'src/test/javascript/e2e/dashboard/dashboard.spec.ts');
+            this.template(`${CLIENT_TEST_SRC_DIR}e2e/dashboard/_dashboard.spec.ts`, `${CLIENT_TEST_SRC_DIR}e2e/dashboard/dashboard.spec.ts`);
         }
 
         // add chart to vendor
         try {
             this.rewriteFile(
-                'src/main/webapp/app/vendor.ts',
+                `${CLIENT_MAIN_SRC_DIR}app/vendor.ts`,
                 'jhipster-needle-add-element-to-vendor',
                 'import \'chart.js/src/chart.js\';');
         } catch (e) {
             this.log(`${chalk.red.bold('ERROR!')}`);
-            this.log('  Missing needle \'jhipster-needle-add-element-to-vendor\' in src/main/webapp/app/vendor.ts');
+            this.log(`  Missing needle 'jhipster-needle-add-element-to-vendor' in ${CLIENT_MAIN_SRC_DIR}app/vendor.ts`);
             this.log('  You need to add manually:\n');
             this.log(`${chalk.yellow.bold('import \'chart.js/src/chart.js\';')}`);
             this.log('');
@@ -286,15 +289,15 @@ module.exports = JhipsterGenerator.extend({
                 "radarchart": "RadarChart"
             },`;
             this.languages.forEach((language) => {
-                this.template('src/main/webapp/i18n/en/dashboard.json', `src/main/webapp/i18n/${language}/dashboard.json`);
+                this.template(`${CLIENT_MAIN_SRC_DIR}i18n/en/dashboard.json`, `${CLIENT_MAIN_SRC_DIR}i18n/${language}/dashboard.json`);
                 try {
                     this.rewriteFile(
-                        `src/main/webapp/i18n/${language}/global.json`,
+                        `${CLIENT_MAIN_SRC_DIR}i18n/${language}/global.json`,
                         'jhipster-needle-menu-add-element',
                         `${dashboardTranslation}`);
                 } catch (e) {
                     this.log(`${chalk.red.bold('ERROR!')}`);
-                    this.log(`  Missing needle 'jhipster-needle-menu-add-element' in src/main/webapp/i18n/${language}/global.json`);
+                    this.log(`  Missing needle 'jhipster-needle-menu-add-element' in ${CLIENT_MAIN_SRC_DIR}i18n/${language}/global.json`);
                     this.log('  You need to add manually:');
                     this.log(`${dashboardTranslation}`);
                     this.log('');
@@ -304,51 +307,53 @@ module.exports = JhipsterGenerator.extend({
         }
 
         // copy all dashboard files
-        this.template('src/main/webapp/app/dashboard/dashboard.module.ts', 'src/main/webapp/app/dashboard/dashboard.module.ts');
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/dashboard.module.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/dashboard.module.ts`);
 
-        this.template('src/main/webapp/app/dashboard/barchart/index.ts', 'src/main/webapp/app/dashboard/barchart/index.ts');
-        this.template('src/main/webapp/app/dashboard/barchart/barchart.component.html', 'src/main/webapp/app/dashboard/barchart/barchart.component.html');
-        this.template('src/main/webapp/app/dashboard/barchart/barchart.component.ts', 'src/main/webapp/app/dashboard/barchart/barchart.component.ts');
-        this.template('src/main/webapp/app/dashboard/barchart/barchart.module.ts', 'src/main/webapp/app/dashboard/barchart/barchart.module.ts');
-        this.template('src/main/webapp/app/dashboard/barchart/barchart.route.ts', 'src/main/webapp/app/dashboard/barchart/barchart.route.ts');
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/barchart/index.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/barchart/index.ts`);
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/barchart/barchart.component.html`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/barchart/barchart.component.html`);
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/barchart/barchart.component.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/barchart/barchart.component.ts`);
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/barchart/barchart.module.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/barchart/barchart.module.ts`);
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/barchart/barchart.route.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/barchart/barchart.route.ts`);
 
-        this.template('src/main/webapp/app/dashboard/doughnutchart/index.ts', 'src/main/webapp/app/dashboard/doughnutchart/index.ts');
-        this.template('src/main/webapp/app/dashboard/doughnutchart/doughnutchart.component.html', 'src/main/webapp/app/dashboard/doughnutchart/doughnutchart.component.html');
-        this.template('src/main/webapp/app/dashboard/doughnutchart/doughnutchart.component.ts', 'src/main/webapp/app/dashboard/doughnutchart/doughnutchart.component.ts');
-        this.template('src/main/webapp/app/dashboard/doughnutchart/doughnutchart.module.ts', 'src/main/webapp/app/dashboard/doughnutchart/doughnutchart.module.ts');
-        this.template('src/main/webapp/app/dashboard/doughnutchart/doughnutchart.route.ts', 'src/main/webapp/app/dashboard/doughnutchart/doughnutchart.route.ts');
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/doughnutchart/index.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/doughnutchart/index.ts`);
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/doughnutchart/doughnutchart.component.html`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/doughnutchart/doughnutchart.component.html`);
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/doughnutchart/doughnutchart.component.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/doughnutchart/doughnutchart.component.ts`);
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/doughnutchart/doughnutchart.module.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/doughnutchart/doughnutchart.module.ts`);
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/doughnutchart/doughnutchart.route.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/doughnutchart/doughnutchart.route.ts`);
 
-        this.template('src/main/webapp/app/dashboard/linechart/index.ts', 'src/main/webapp/app/dashboard/linechart/index.ts');
-        this.template('src/main/webapp/app/dashboard/linechart/linechart.component.html', 'src/main/webapp/app/dashboard/linechart/linechart.component.html');
-        this.template('src/main/webapp/app/dashboard/linechart/linechart.component.ts', 'src/main/webapp/app/dashboard/linechart/linechart.component.ts');
-        this.template('src/main/webapp/app/dashboard/linechart/linechart.module.ts', 'src/main/webapp/app/dashboard/linechart/linechart.module.ts');
-        this.template('src/main/webapp/app/dashboard/linechart/linechart.route.ts', 'src/main/webapp/app/dashboard/linechart/linechart.route.ts');
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/linechart/index.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/linechart/index.ts`);
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/linechart/linechart.component.html`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/linechart/linechart.component.html`);
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/linechart/linechart.component.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/linechart/linechart.component.ts`);
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/linechart/linechart.module.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/linechart/linechart.module.ts`);
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/linechart/linechart.route.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/linechart/linechart.route.ts`);
 
-        this.template('src/main/webapp/app/dashboard/piechart/index.ts', 'src/main/webapp/app/dashboard/piechart/index.ts');
-        this.template('src/main/webapp/app/dashboard/piechart/piechart.component.html', 'src/main/webapp/app/dashboard/piechart/piechart.component.html');
-        this.template('src/main/webapp/app/dashboard/piechart/piechart.component.ts', 'src/main/webapp/app/dashboard/piechart/piechart.component.ts');
-        this.template('src/main/webapp/app/dashboard/piechart/piechart.module.ts', 'src/main/webapp/app/dashboard/piechart/piechart.module.ts');
-        this.template('src/main/webapp/app/dashboard/piechart/piechart.route.ts', 'src/main/webapp/app/dashboard/piechart/piechart.route.ts');
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/piechart/index.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/piechart/index.ts`);
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/piechart/piechart.component.html`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/piechart/piechart.component.html`);
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/piechart/piechart.component.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/piechart/piechart.component.ts`);
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/piechart/piechart.module.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/piechart/piechart.module.ts`);
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/piechart/piechart.route.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/piechart/piechart.route.ts`);
 
-        this.template('src/main/webapp/app/dashboard/polarareachart/index.ts', 'src/main/webapp/app/dashboard/polarareachart/index.ts');
-        this.template('src/main/webapp/app/dashboard/polarareachart/polarareachart.component.html', 'src/main/webapp/app/dashboard/polarareachart/polarareachart.component.html');
-        this.template('src/main/webapp/app/dashboard/polarareachart/polarareachart.component.ts', 'src/main/webapp/app/dashboard/polarareachart/polarareachart.component.ts');
-        this.template('src/main/webapp/app/dashboard/polarareachart/polarareachart.module.ts', 'src/main/webapp/app/dashboard/polarareachart/polarareachart.module.ts');
-        this.template('src/main/webapp/app/dashboard/polarareachart/polarareachart.route.ts', 'src/main/webapp/app/dashboard/polarareachart/polarareachart.route.ts');
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/polarareachart/index.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/polarareachart/index.ts`);
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/polarareachart/polarareachart.component.html`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/polarareachart/polarareachart.component.html`);
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/polarareachart/polarareachart.component.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/polarareachart/polarareachart.component.ts`);
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/polarareachart/polarareachart.module.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/polarareachart/polarareachart.module.ts`);
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/polarareachart/polarareachart.route.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/polarareachart/polarareachart.route.ts`);
 
-        this.template('src/main/webapp/app/dashboard/radarchart/index.ts', 'src/main/webapp/app/dashboard/radarchart/index.ts');
-        this.template('src/main/webapp/app/dashboard/radarchart/radarchart.component.html', 'src/main/webapp/app/dashboard/radarchart/radarchart.component.html');
-        this.template('src/main/webapp/app/dashboard/radarchart/radarchart.component.ts', 'src/main/webapp/app/dashboard/radarchart/radarchart.component.ts');
-        this.template('src/main/webapp/app/dashboard/radarchart/radarchart.module.ts', 'src/main/webapp/app/dashboard/radarchart/radarchart.module.ts');
-        this.template('src/main/webapp/app/dashboard/radarchart/radarchart.route.ts', 'src/main/webapp/app/dashboard/radarchart/radarchart.route.ts');
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/radarchart/index.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/radarchart/index.ts`);
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/radarchart/radarchart.component.html`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/radarchart/radarchart.component.html`);
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/radarchart/radarchart.component.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/radarchart/radarchart.component.ts`);
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/radarchart/radarchart.module.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/radarchart/radarchart.module.ts`);
+        this.template(`${CLIENT_MAIN_SRC_DIR}app/dashboard/radarchart/radarchart.route.ts`, `${CLIENT_MAIN_SRC_DIR}app/dashboard/radarchart/radarchart.route.ts`);
     },
 
     install() {
         if (this.defaultOption === undefined && !this.props.confirmation) {
             return;
         }
+
         if (!this.anyError) {
-            const logMsg = `To install your dependencies manually, run: ${chalk.yellow.bold(`${this.clientPackageManager} install`)}`;
+            let logMsg = `\nTo install your dependencies manually, run: ${chalk.yellow.bold(`${this.clientPackageManager} install`)}`;
+            logMsg += `\nTo build the front manually, run: ${chalk.yellow.bold(`${this.clientPackageManager} run webpack:build\n`)}`;
             const injectDependenciesAndConstants = (err) => {
                 if (err) {
                     this.warning('Install of dependencies failed!');
@@ -364,7 +369,11 @@ module.exports = JhipsterGenerator.extend({
                 yarn: this.clientPackageManager === 'yarn',
                 callback: injectDependenciesAndConstants
             };
-            this.installDependencies(installConfig);
+            if (this.options['skip-install']) {
+                this.log(logMsg);
+            } else {
+                this.installDependencies(installConfig);
+            }
         } else {
             this.log('');
             if (this.clientPackageManager === 'yarn') {

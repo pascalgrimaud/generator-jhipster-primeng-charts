@@ -5,10 +5,6 @@ const fse = require('fs-extra');
 const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
 
-const deps = [
-    [helpers.createDummyGenerator(), 'jhipster:modules']
-];
-
 const expectedFiles = {
     dashboard: [
         'src/main/webapp/app/dashboard/dashboard.module.ts',
@@ -67,12 +63,11 @@ describe('JHipster generator primeng-charts', () => {
                     fse.copySync(path.join(__dirname, '../test/templates/default'), dir);
                 })
                 .withOptions({
-                    testmode: true
+                    skipInstall: true
                 })
                 .withPrompts({
                     confirmation: true
                 })
-                .withGenerators(deps)
                 .on('end', done);
         });
 
@@ -91,12 +86,11 @@ describe('JHipster generator primeng-charts', () => {
                     fse.copySync(path.join(__dirname, '../test/templates/notranslation'), dir);
                 })
                 .withOptions({
-                    testmode: true
+                    skipInstall: true
                 })
                 .withPrompts({
                     confirmation: true
                 })
-                .withGenerators(deps)
                 .on('end', done);
         });
 
@@ -115,12 +109,11 @@ describe('JHipster generator primeng-charts', () => {
                     fse.copySync(path.join(__dirname, '../test/templates/protractor'), dir);
                 })
                 .withOptions({
-                    testmode: true
+                    skipInstall: true
                 })
                 .withPrompts({
                     confirmation: true
                 })
-                .withGenerators(deps)
                 .on('end', done);
         });
 
@@ -139,12 +132,11 @@ describe('JHipster generator primeng-charts', () => {
                     fse.copySync(path.join(__dirname, '../test/templates/protractor-notranslation'), dir);
                 })
                 .withOptions({
-                    testmode: true
+                    skipInstall: true
                 })
                 .withPrompts({
                     confirmation: true
                 })
-                .withGenerators(deps)
                 .on('end', done);
         });
 
