@@ -38,7 +38,7 @@ describe('administration', () => {
         <%_ } else { _%>
         const expect1 = /BarChart/;
         <%_ } _%>
-            element.all(by.css('h2 span')).first().<%- elementGetter %>.then((value) => {
+        element.all(by.css('h2 span')).first().<%- elementGetter %>.then((value) => {
             expect(value).toMatch(expect1);
         });
     });
