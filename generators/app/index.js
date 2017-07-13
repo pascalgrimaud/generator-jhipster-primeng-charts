@@ -60,12 +60,12 @@ module.exports = JhipsterGenerator.extend({
         displayLogo() {
             // Have Yeoman greet the user.
             this.log('');
-            this.log(`${chalk.red('██████╗  ██████╗  ██╗ ███╗   ███╗ ███████╗ ███╗   ██╗  ██████╗')}`);
-            this.log(`${chalk.red('██╔══██╗ ██╔══██╗ ██║ ████╗ ████║ ██╔════╝ ████╗  ██║ ██╔════╝')}`);
-            this.log(`${chalk.red('██████╔╝ ██████╔╝ ██║ ██╔████╔██║ █████╗   ██╔██╗ ██║ ██║  ███╗')}`);
-            this.log(`${chalk.red('██╔═══╝  ██╔══██╗ ██║ ██║╚██╔╝██║ ██╔══╝   ██║╚██╗██║ ██║   ██║')}`);
-            this.log(`${chalk.red('██║      ██║  ██║ ██║ ██║ ╚═╝ ██║ ███████╗ ██║ ╚████║ ╚██████╔╝')}`);
-            this.log(`${chalk.red('╚═╝      ╚═╝  ╚═╝ ╚═╝ ╚═╝     ╚═╝ ╚══════╝ ╚═╝  ╚═══╝  ╚═════╝')}`);
+            this.log(`${chalk.white('  ██████╗  ██████╗  ██╗ ███╗   ███╗ ███████╗')}${chalk.red(' ███╗   ██╗  ██████╗')}`);
+            this.log(`${chalk.white('  ██╔══██╗ ██╔══██╗ ██║ ████╗ ████║ ██╔════╝')}${chalk.red(' ████╗  ██║ ██╔════╝')}`);
+            this.log(`${chalk.white('  ██████╔╝ ██████╔╝ ██║ ██╔████╔██║ █████╗  ')}${chalk.red(' ██╔██╗ ██║ ██║  ███╗')}`);
+            this.log(`${chalk.white('  ██╔═══╝  ██╔══██╗ ██║ ██║╚██╔╝██║ ██╔══╝  ')}${chalk.red(' ██║╚██╗██║ ██║   ██║')}`);
+            this.log(`${chalk.white('  ██║      ██║  ██║ ██║ ██║ ╚═╝ ██║ ███████╗')}${chalk.red(' ██║ ╚████║ ╚██████╔╝')}`);
+            this.log(`${chalk.white('  ╚═╝      ╚═╝  ╚═╝ ╚═╝ ╚═╝     ╚═╝ ╚══════╝')}${chalk.red(' ╚═╝  ╚═══╝  ╚═════╝')}`);
             this.log(`\nWelcome to the ${chalk.bold.yellow('JHipster primeng-charts')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
         },
         checkclientFramework() {
