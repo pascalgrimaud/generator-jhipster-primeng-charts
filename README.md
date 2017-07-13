@@ -30,7 +30,7 @@ The generated charts comes directly from PrimeNG:
 - [RadarChart](https://www.primefaces.org/primeng/#/chart/radar)
 
 <div align="center">
-    <img src="https://raw.githubusercontent.com/pascalgrimaud/generator-jhipster-primeng-charts/master/images/jhipster-primeng-charts.png">
+    <img src="https://raw.githubusercontent.com/pascalgrimaud/generator-jhipster-primeng-charts/master/images/generator-jhipster-primeng-charts.gif">
 </div>
 
 
