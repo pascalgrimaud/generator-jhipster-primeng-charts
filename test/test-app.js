@@ -146,4 +146,73 @@ describe('JHipster generator primeng-charts', () => {
             assert.file(expectedFiles.protractor);
         });
     });
+
+    describe('With existing lib in package.json', () => {
+        beforeEach((done) => {
+            helpers
+                .run(path.join(__dirname, '../generators/app'))
+                .inTmpDir((dir) => {
+                    fse.copySync(path.join(__dirname, '../test/templates/update'), dir);
+                })
+                .withOptions({
+                    skipInstall: true
+                })
+                .withPrompts({
+                    confirmation: true
+                })
+                .on('end', done);
+        });
+
+        it('generate all dashboard files', () => {
+            assert.file(expectedFiles.dashboard);
+            assert.file(expectedFiles.translation);
+            assert.noFile(expectedFiles.protractor);
+        });
+    });
+
+    describe('No confirmation', () => {
+        beforeEach((done) => {
+            helpers
+                .run(path.join(__dirname, '../generators/app'))
+                .inTmpDir((dir) => {
+                    fse.copySync(path.join(__dirname, '../test/templates/default'), dir);
+                })
+                .withOptions({
+                    skipInstall: true
+                })
+                .withPrompts({
+                    confirmation: false
+                })
+                .on('end', done);
+        });
+
+        it('generate all dashboard files', () => {
+            assert.noFile(expectedFiles.dashboard);
+            assert.noFile(expectedFiles.translation);
+            assert.noFile(expectedFiles.protractor);
+        });
+    });
+
+    describe('On JHipster 4.0.0', () => {
+        beforeEach((done) => {
+            helpers
+                .run(path.join(__dirname, '../generators/app'))
+                .inTmpDir((dir) => {
+                    fse.copySync(path.join(__dirname, '../test/templates/jhipster-4.0.0'), dir);
+                })
+                .withOptions({
+                    skipInstall: true
+                })
+                .withPrompts({
+                    confirmation: true
+                })
+                .on('end', done);
+        });
+
+        it('generate all dashboard files', () => {
+            assert.file(expectedFiles.dashboard);
+            assert.file(expectedFiles.translation);
+            assert.file(expectedFiles.protractor);
+        });
+    });
 });

@@ -3,11 +3,16 @@ const chalk = require('chalk');
 const generator = require('yeoman-generator');
 const packagejs = require('../../package.json');
 const semver = require('semver');
+const shelljs = require('shelljs');
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
 const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
 
 const JhipsterGenerator = generator.extend({});
 util.inherits(JhipsterGenerator, BaseGenerator);
+
+const ANGULAR_VERSION = '4.2.6';
+const CHARTJS_VERSION = '2.6.0';
+const PRIMENG_VERSION = '4.1.0';
 
 module.exports = JhipsterGenerator.extend({
     constructor: function (...args) { // eslint-disable-line object-shorthand
@@ -29,6 +34,29 @@ module.exports = JhipsterGenerator.extend({
                 this.error('Can\'t read .yo-rc.json');
             }
         },
+
+        readPackageJson() {
+            const fromPath = 'package.json';
+            this.libAngularVersion = ANGULAR_VERSION;
+            if (shelljs.test('-f', fromPath)) {
+                const fileData = this.fs.readJSON(fromPath);
+                if (fileData && fileData.dependencies) {
+                    if (fileData.dependencies['@angular/common']) {
+                        this.libAngularVersion = fileData.dependencies['@angular/common'];
+                    }
+                    if (fileData.dependencies['@angular/animations']) {
+                        this.libAngularAnimationsVersion = fileData.dependencies['@angular/animations'];
+                    }
+                    if (fileData.dependencies.primeng) {
+                        this.libPrimeNgVersion = fileData.dependencies.primeng;
+                    }
+                    if (fileData.dependencies['chart.js']) {
+                        this.libChartJsVersion = fileData.dependencies['chart.js'];
+                    }
+                }
+            }
+        },
+
         displayLogo() {
             // Have Yeoman greet the user.
             this.log('');
@@ -103,16 +131,33 @@ module.exports = JhipsterGenerator.extend({
 
         // add dependencies
         try {
-            this.addNpmDependency('@angular/animations', '4.2.4');
-            this.addNpmDependency('chart.js', '2.6.0');
-            this.addNpmDependency('primeng', '4.0.3');
+            if (this.libAngularAnimationsVersion) {
+                // the version already exists, so try to upgrade instead
+                this.replaceContent('package.json',
+                    `"@angular/animations": "${this.libAngularAnimationsVersion}"`,
+                    `"@angular/animations": "${this.libAngularVersion}"`);
+            } else {
+                this.addNpmDependency('@angular/animations', `${this.libAngularVersion}`);
+            }
+            if (this.libChartJsVersion) {
+                // the version already exists, so try to upgrade instead
+                this.replaceContent('package.json', `"chart.js": "${this.libChartJsVersion}"`, `"chart.js": "${CHARTJS_VERSION}"`);
+            } else {
+                this.addNpmDependency('chart.js', `${CHARTJS_VERSION}`);
+            }
+            if (this.libPrimeNgVersion) {
+                // the version already exists, so try to upgrade instead
+                this.replaceContent('package.json', `"primeng": "${this.libPrimeNgVersion}"`, `"primeng": "${PRIMENG_VERSION}"`);
+            } else {
+                this.addNpmDependency('primeng', `${PRIMENG_VERSION}`);
+            }
         } catch (e) {
             this.log(`${chalk.red.bold('ERROR!')}`);
             this.log('  Problem when adding the new librairies in your package.json');
             this.log('  You need to add manually:\n');
-            this.log('  "@angular/animations": "4.2.4",');
-            this.log('  "chart.js": "2.6.0",');
-            this.log('  "primeng": "4.0.3"');
+            this.log(`  "@angular/animations": "${this.libAngularVersion}",`);
+            this.log(`  "chart.js": "${CHARTJS_VERSION}",`);
+            this.log(`  "primeng": "${PRIMENG_VERSION}"`);
             this.log('');
             this.anyError = true;
         }
