@@ -4,7 +4,8 @@
   "description": "Generate sample charts with PrimeNG",
   "keywords": [
     "yeoman-generator",
-    "jhipster-module"
+    "jhipster-module",
+    "jhipster-5"
   ],
   "homepage": "https://github.com/pascalgrimaud/generator-jhipster-primeng-charts",
   "author": {

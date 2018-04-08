@@ -10,9 +10,9 @@ const jhipsterConstants = require('generator-jhipster/generators/generator-const
 const JhipsterGenerator = generator.extend({});
 util.inherits(JhipsterGenerator, BaseGenerator);
 
-const ANGULAR_VERSION = '4.2.6';
-const CHARTJS_VERSION = '2.6.0';
-const PRIMENG_VERSION = '4.1.0';
+const ANGULAR_VERSION = '5.2.8';
+const CHARTJS_VERSION = '2.7.2';
+const PRIMENG_VERSION = '5.2.4';
 
 module.exports = JhipsterGenerator.extend({
     constructor: function (...args) { // eslint-disable-line object-shorthand
