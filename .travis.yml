@@ -7,11 +7,16 @@ node_js:
     - "8.11.1"
 jdk:
     - oraclejdk8
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
 cache:
     directories:
         - $HOME/.m2
         - $HOME/.gradle
-        - $HOME/.yarn-cache
 env:
     global:
         - SPRING_OUTPUT_ANSI_ENABLED=ALWAYS
@@ -19,10 +24,13 @@ before_install:
     - java -version
     - sudo /etc/init.d/mysql stop
     - sudo /etc/init.d/postgresql stop
+    # Use this for Protractor
     - export DISPLAY=:99.0
     - sh -e /etc/init.d/xvfb start
-    - npm install -g npm
-    - npm install -g yarn
+    # Install Yarn
+    - curl -o- -L https://yarnpkg.com/install.sh | bash
+    - export PATH=$HOME/.yarn/bin:$PATH
+    - yarn -v
     - yarn global add yo
 install:
     - yarn install
@@ -39,6 +47,7 @@ script:
     - yo jhipster-primeng-charts --default --force
     # need to re-activate for next version of JHipster
     # - yarn lint
+    - ./mvnw package
     - ./mvnw &
-    - sleep 40
+    - sleep 60
     - yarn e2e
