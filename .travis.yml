@@ -45,8 +45,7 @@ script:
     - yarn install
     - yarn link generator-jhipster-primeng-charts
     - yo jhipster-primeng-charts --default --force
-    # need to re-activate for next version of JHipster
-    # - yarn lint
+    - yarn lint
     - ./mvnw package
     - ./mvnw &
     - sleep 60
