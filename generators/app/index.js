@@ -124,7 +124,7 @@ module.exports = JhipsterGenerator.extend({
         this.clientFramework = this.jhipsterAppConfig.clientFramework;
         this.clientPackageManager = this.jhipsterAppConfig.clientPackageManager;
         this.protractorTests = this.jhipsterAppConfig.testFrameworks.indexOf('protractor') !== -1;
-        this.angular2AppName = this.getAngular2AppName();
+        this.angularXAppName = this.getAngularXAppName();
 
         const CLIENT_MAIN_SRC_DIR = jhipsterConstants.CLIENT_MAIN_SRC_DIR;
         const CLIENT_TEST_SRC_DIR = jhipsterConstants.CLIENT_TEST_SRC_DIR;
@@ -164,14 +164,14 @@ module.exports = JhipsterGenerator.extend({
 
         // add module to app.module.ts
         try {
-            this.addAngularModule(this.angular2AppName, 'Dashboard', 'dashboard', 'dashboard', this.enableTranslation, this.clientFramework);
+            this.addAngularModule(this.angularXAppName, 'Dashboard', 'dashboard', 'dashboard', this.enableTranslation, this.clientFramework);
         } catch (e) {
             this.log(`${chalk.red.bold('ERROR!')}`);
             this.log('  Problem when updating your app.module.ts');
             this.log('  You need to import manually the new dashboard.module.ts:\n');
-            this.log(`${chalk.yellow.bold(`  import { ${this.angular2AppName}DashboardModule } from './dashboard/dashboard.module';`)}`);
+            this.log(`${chalk.yellow.bold(`  import { ${this.angularXAppName}DashboardModule } from './dashboard/dashboard.module';`)}`);
             this.log('\n  and:\n');
-            this.log(`${chalk.yellow.bold(`  ${this.angular2AppName}DashboardModule,`)}\n`);
+            this.log(`${chalk.yellow.bold(`  ${this.angularXAppName}DashboardModule,`)}\n`);
             this.anyError = true;
         }
 
