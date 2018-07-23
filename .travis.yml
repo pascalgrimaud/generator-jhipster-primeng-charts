@@ -35,8 +35,8 @@ before_install:
 install:
     - yarn install
     - yarn link
-    - gulp eslint
-    - gulp test
+    - yarn lint
+    - yarn test
 script:
     - git clone https://github.com/jhipster/jhipster-sample-app.git
     - cd jhipster-sample-app
