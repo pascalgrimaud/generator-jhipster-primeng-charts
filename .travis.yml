@@ -46,7 +46,7 @@ script:
     - yarn link generator-jhipster-primeng-charts
     - yo jhipster-primeng-charts --default --force
     - yarn lint
-    - ./mvnw package
+    - yarn run webpack:build
     - ./mvnw &
     - sleep 60
     - yarn e2e

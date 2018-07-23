@@ -1,5 +1,5 @@
-var HtmlScreenshotReporter = require("protractor-jasmine2-screenshot-reporter");
-var JasmineReporters = require('jasmine-reporters');
+const HtmlScreenshotReporter = require('protractor-jasmine2-screenshot-reporter');
+const JasmineReporters = require('jasmine-reporters');
 
 exports.config = {
     allScriptsTimeout: 20000,
@@ -11,7 +11,7 @@ exports.config = {
     ],
 
     capabilities: {
-        'browserName': 'chrome',
+        browserName: 'chrome',
         'phantomjs.binary.path': require('phantomjs-prebuilt').path,
         'phantomjs.ghostdriver.cli.args': ['--loglevel=DEBUG']
     },
@@ -27,20 +27,20 @@ exports.config = {
         defaultTimeoutInterval: 30000
     },
 
-    beforeLaunch: function() {
+    beforeLaunch() {
         require('ts-node').register({
             project: ''
         });
     },
 
-    onPrepare: function() {
+    onPrepare() {
         browser.driver.manage().window().setSize(1280, 1024);
         jasmine.getEnv().addReporter(new JasmineReporters.JUnitXmlReporter({
             savePath: 'target/reports/e2e',
             consolidateAll: false
         }));
         jasmine.getEnv().addReporter(new HtmlScreenshotReporter({
-            dest: "target/reports/e2e/screenshots"
+            dest: 'target/reports/e2e/screenshots'
         }));
     },
 
