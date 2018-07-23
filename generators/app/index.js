@@ -129,13 +129,11 @@ module.exports = class extends BaseGenerator {
         // add dependencies
         try {
             if (this.libAngularAnimationsVersion) {
-                console.log('ICIIIIIIII');
                 // the version already exists, so try to upgrade instead
                 this.replaceContent('package.json',
                     `"@angular/animations": "${this.libAngularAnimationsVersion}"`,
                     `"@angular/animations": "${this.libAngularVersion}"`);
             } else {
-                console.log('laaaaaaaaaaa => ' + this.libAngularVersion);
                 this.addNpmDependency('@angular/animations', `${this.libAngularVersion}`);
             }
             if (this.libChartJsVersion) {
