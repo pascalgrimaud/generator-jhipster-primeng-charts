@@ -1,4 +1,5 @@
 import { browser, element, by } from 'protractor';
+import { NavBarPage } from './../page-objects/jhi-page-objects';
 <%_
 let elementGetter = `getText()`;
 if (enableTranslation) {
@@ -7,28 +8,20 @@ if (enableTranslation) {
 _%>
 
 describe('administration', () => {
-
-    const username = element(by.id('username'));
-    const password = element(by.id('password'));
-    const accountMenu = element(by.id('account-menu'));
+    let navBarPage: NavBarPage;
     const dashboardMenu = element(by.id('dashboard-menu'));
-    const login = element(by.id('login'));
-    const logout = element(by.id('logout'));
 
     beforeAll(() => {
         browser.get('/');
-
-        accountMenu.click();
-        login.click();
-
-        username.sendKeys('admin');
-        password.sendKeys('admin');
-        element(by.css('button[type=submit]')).click();
+        browser.waitForAngular();
+        navBarPage = new NavBarPage(true);
+        navBarPage.getSignInPage().autoSignInUsing('admin', 'admin');
         browser.waitForAngular();
     });
 
-    beforeEach(() => dashboardMenu.click();
-    );
+    beforeEach(() => {
+        dashboardMenu.click();
+    });
 
     it('should load BarChart', () => {
         element(by.css('[routerLink="barchart"]')).click();
@@ -37,10 +30,10 @@ describe('administration', () => {
         <%_ } else { _%>
         const expect1 = /BarChart/;
         <%_ } _%>
-        element.all(by.css('h2 span')).first().<%- elementGetter %>.then(value =>
+        element.all(by.css('h2 span')).first().<%- elementGetter %>.then(value => {
             expect(value).toMatch(expect1);
-        );
-    })
+        });
+    });
 
     it('should load DoughnutChart', () => {
         element(by.css('[routerLink="doughnutchart"]')).click();
@@ -49,10 +42,10 @@ describe('administration', () => {
         <%_ } else { _%>
         const expect1 = /DoughnutChart/;
         <%_ } _%>
-        element.all(by.css('h2 span')).first().<%- elementGetter %>.then(value =>
+        element.all(by.css('h2 span')).first().<%- elementGetter %>.then(value => {
             expect(value).toMatch(expect1);
-        );
-    })
+        });
+    });
 
     it('should load LineChart', () => {
         element(by.css('[routerLink="linechart"]')).click();
@@ -61,10 +54,10 @@ describe('administration', () => {
         <%_ } else { _%>
         const expect1 = /LineChart/;
         <%_ } _%>
-        element.all(by.css('h2 span')).first().<%- elementGetter %>.then(value =>
+        element.all(by.css('h2 span')).first().<%- elementGetter %>.then(value => {
             expect(value).toMatch(expect1);
-        );
-    })
+        });
+    });
 
     it('should load PieChart', () => {
         element(by.css('[routerLink="piechart"]')).click();
@@ -73,10 +66,10 @@ describe('administration', () => {
         <%_ } else { _%>
         const expect1 = /PieChart/;
         <%_ } _%>
-        element.all(by.css('h2 span')).first().<%- elementGetter %>.then(value =>
+        element.all(by.css('h2 span')).first().<%- elementGetter %>.then(value => {
             expect(value).toMatch(expect1);
-        );
-    })
+        });
+    });
 
     it('should load PolarAreaChart', () => {
         element(by.css('[routerLink="polarareachart"]')).click();
@@ -85,10 +78,10 @@ describe('administration', () => {
         <%_ } else { _%>
         const expect1 = /PolarAreaChart/;
         <%_ } _%>
-        element.all(by.css('h2 span')).first().<%- elementGetter %>.then(value =>
+        element.all(by.css('h2 span')).first().<%- elementGetter %>.then(value => {
             expect(value).toMatch(expect1);
-        );
-    })
+        });
+    });
 
     it('should load RadarChart', () => {
         element(by.css('[routerLink="radarchart"]')).click();
@@ -97,13 +90,12 @@ describe('administration', () => {
         <%_ } else { _%>
         const expect1 = /RadarChart/;
         <%_ } _%>
-        element.all(by.css('h2 span')).first().<%- elementGetter %>.then(value =>
+        element.all(by.css('h2 span')).first().<%- elementGetter %>.then(value => {
             expect(value).toMatch(expect1);
-        );
-    })
+        });
+    });
 
     afterAll(() => {
-        accountMenu.click();
-        logout.click();
+        navBarPage.autoSignOut();
     });
-})
+});
