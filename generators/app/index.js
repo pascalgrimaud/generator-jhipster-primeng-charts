@@ -5,9 +5,9 @@ const BaseGenerator = require('generator-jhipster/generators/generator-base');
 const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
 const packagejs = require('../../package.json');
 
-const ANGULAR_VERSION = '5.2.8';
+const ANGULAR_VERSION = '6.0.0';
 const CHARTJS_VERSION = '2.7.2';
-const PRIMENG_VERSION = '5.2.4';
+const PRIMENG_VERSION = '6.0.1';
 
 module.exports = class extends BaseGenerator {
     constructor(args, opts) {
@@ -129,11 +129,13 @@ module.exports = class extends BaseGenerator {
         // add dependencies
         try {
             if (this.libAngularAnimationsVersion) {
+                console.log('ICIIIIIIII');
                 // the version already exists, so try to upgrade instead
                 this.replaceContent('package.json',
                     `"@angular/animations": "${this.libAngularAnimationsVersion}"`,
                     `"@angular/animations": "${this.libAngularVersion}"`);
             } else {
+                console.log('laaaaaaaaaaa => ' + this.libAngularVersion);
                 this.addNpmDependency('@angular/animations', `${this.libAngularVersion}`);
             }
             if (this.libChartJsVersion) {
