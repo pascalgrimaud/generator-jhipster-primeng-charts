@@ -76,6 +76,11 @@ describe('JHipster generator primeng-charts', () => {
             assert.file(expectedFiles.translation);
             assert.noFile(expectedFiles.protractor);
         });
+        it('contains libraries', () => {
+            assert.fileContent('package.json', '@angular/animations');
+            assert.fileContent('package.json', 'chart.js');
+            assert.fileContent('package.json', 'primeng');
+        });
     });
 
     describe('Without translation', () => {
@@ -98,6 +103,11 @@ describe('JHipster generator primeng-charts', () => {
             assert.file(expectedFiles.dashboard);
             assert.noFile(expectedFiles.translation);
             assert.noFile(expectedFiles.protractor);
+        });
+        it('contains libraries', () => {
+            assert.fileContent('package.json', '@angular/animations');
+            assert.fileContent('package.json', 'chart.js');
+            assert.fileContent('package.json', 'primeng');
         });
     });
 
@@ -122,6 +132,11 @@ describe('JHipster generator primeng-charts', () => {
             assert.file(expectedFiles.translation);
             assert.file(expectedFiles.protractor);
         });
+        it('contains libraries', () => {
+            assert.fileContent('package.json', '@angular/animations');
+            assert.fileContent('package.json', 'chart.js');
+            assert.fileContent('package.json', 'primeng');
+        });
     });
 
     describe('With protractor and no translation', () => {
@@ -144,6 +159,11 @@ describe('JHipster generator primeng-charts', () => {
             assert.file(expectedFiles.dashboard);
             assert.noFile(expectedFiles.translation);
             assert.file(expectedFiles.protractor);
+        });
+        it('contains libraries', () => {
+            assert.fileContent('package.json', '@angular/animations');
+            assert.fileContent('package.json', 'chart.js');
+            assert.fileContent('package.json', 'primeng');
         });
     });
 
@@ -168,6 +188,11 @@ describe('JHipster generator primeng-charts', () => {
             assert.file(expectedFiles.translation);
             assert.noFile(expectedFiles.protractor);
         });
+        it('contains libraries', () => {
+            assert.fileContent('package.json', '@angular/animations');
+            assert.fileContent('package.json', 'chart.js');
+            assert.fileContent('package.json', 'primeng');
+        });
     });
 
     describe('No confirmation', () => {
@@ -191,6 +216,11 @@ describe('JHipster generator primeng-charts', () => {
             assert.noFile(expectedFiles.translation);
             assert.noFile(expectedFiles.protractor);
         });
+        it('does not contain libraries', () => {
+            assert.noFileContent('package.json', '@angular/animations');
+            assert.noFileContent('package.json', 'chart.js');
+            assert.noFileContent('package.json', 'primeng');
+        });
     });
 
     describe('On JHipster 4.0.0', () => {
@@ -213,6 +243,11 @@ describe('JHipster generator primeng-charts', () => {
             assert.file(expectedFiles.dashboard);
             assert.file(expectedFiles.translation);
             assert.file(expectedFiles.protractor);
+        });
+        it('contains libraries', () => {
+            assert.fileContent('package.json', '@angular/animations');
+            assert.fileContent('package.json', 'chart.js');
+            assert.fileContent('package.json', 'primeng');
         });
     });
 });

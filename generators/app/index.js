@@ -1,4 +1,5 @@
 const chalk = require('chalk');
+const extend = require('deep-extend');
 const semver = require('semver');
 const shelljs = require('shelljs');
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
@@ -127,37 +128,38 @@ module.exports = class extends BaseGenerator {
         const CLIENT_TEST_SRC_DIR = jhipsterConstants.CLIENT_TEST_SRC_DIR;
 
         // add dependencies
-        try {
-            if (this.libAngularAnimationsVersion) {
-                // the version already exists, so try to upgrade instead
-                this.replaceContent('package.json',
-                    `"@angular/animations": "${this.libAngularAnimationsVersion}"`,
-                    `"@angular/animations": "${this.libAngularVersion}"`);
-            } else {
-                this.addNpmDependency('@angular/animations', `${this.libAngularVersion}`);
-            }
-            if (this.libChartJsVersion) {
-                // the version already exists, so try to upgrade instead
-                this.replaceContent('package.json', `"chart.js": "${this.libChartJsVersion}"`, `"chart.js": "${CHARTJS_VERSION}"`);
-            } else {
-                this.addNpmDependency('chart.js', `${CHARTJS_VERSION}`);
-            }
-            if (this.libPrimeNgVersion) {
-                // the version already exists, so try to upgrade instead
-                this.replaceContent('package.json', `"primeng": "${this.libPrimeNgVersion}"`, `"primeng": "${PRIMENG_VERSION}"`);
-            } else {
-                this.addNpmDependency('primeng', `${PRIMENG_VERSION}`);
-            }
-        } catch (e) {
-            this.log(`${chalk.red.bold('ERROR!')}`);
-            this.log('  Problem when adding the new librairies in your package.json');
-            this.log('  You need to add manually:\n');
-            this.log(`  "@angular/animations": "${this.libAngularVersion}",`);
-            this.log(`  "chart.js": "${CHARTJS_VERSION}",`);
-            this.log(`  "primeng": "${PRIMENG_VERSION}"`);
-            this.log('');
-            this.anyError = true;
+        const pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
+        if (!this.libAngularAnimationsVersion) {
+            extend(pkg, {
+                dependencies: {
+                    '@angular/animations': `${this.libAngularVersion}`
+                }
+            });
+            this.log('Add new dependency: @angular/animations');
+        } else {
+            this.log('No need to add dependency @angular/animations : already in your package.json');
         }
+        if (!this.libChartJsVersion) {
+            extend(pkg, {
+                dependencies: {
+                    'chart.js': `${CHARTJS_VERSION}`
+                }
+            });
+            this.log('Add new dependency: chart.js');
+        } else {
+            this.log('No need to add dependency chart.js : already in your package.json');
+        }
+        if (!this.libPrimeNgVersion) {
+            extend(pkg, {
+                dependencies: {
+                    primeng: `${PRIMENG_VERSION}`
+                }
+            });
+            this.log('Add new dependency: primeng');
+        } else {
+            this.log('No need to add dependency primeng : already in your package.json');
+        }
+        this.fs.writeJSON(this.destinationPath('package.json'), pkg);
 
         // add module to app.module.ts
         try {

@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "chalk": "2.4.1",
+    "deep-extend": "0.6.0",
     "fs-extra": "6.0.1",
     "generator-jhipster": ">=5.1.0",
     "mkdirp": "0.5.1",
@@ -40,7 +41,6 @@
     "yeoman-test": "1.8.0"
   },
   "scripts": {
-    "pretest": "eslint .",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "mocha test/*"
