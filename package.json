@@ -1,6 +1,6 @@
 {
   "name": "generator-jhipster-primeng-charts",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Generate sample charts with PrimeNG",
   "keywords": [
     "yeoman-generator",
