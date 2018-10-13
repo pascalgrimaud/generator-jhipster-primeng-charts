@@ -4,7 +4,7 @@ services:
     - docker
 language: node_js
 node_js:
-    - "8.11.1"
+    - "8.12.0"
 jdk:
     - oraclejdk8
 addons:
@@ -27,24 +27,20 @@ before_install:
     # Use this for Protractor
     - export DISPLAY=:99.0
     - sh -e /etc/init.d/xvfb start
-    # Install Yarn
-    - curl -o- -L https://yarnpkg.com/install.sh | bash
-    - export PATH=$HOME/.yarn/bin:$PATH
-    - yarn -v
-    - yarn global add yo
+    - npm install -g yo
 install:
-    - yarn install
-    - yarn link
-    - yarn lint
-    - yarn test
+    - npm install
+    - npm link
+    - npm run lint
+    - npm test
 script:
     - git clone https://github.com/jhipster/jhipster-sample-app.git
     - cd jhipster-sample-app
-    - yarn install
-    - yarn link generator-jhipster-primeng-charts
+    - npm install
+    - npm link generator-jhipster-primeng-charts
     - yo jhipster-primeng-charts --default --force
-    - yarn lint
-    - yarn run webpack:build
+    - npm lint
+    - npm run webpack:build
     - ./mvnw &
     - sleep 60
-    - yarn e2e
+    - npm run e2e
