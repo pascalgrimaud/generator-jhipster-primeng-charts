@@ -1,17 +1,17 @@
 {
   "generator-jhipster": {
     "promptValues": {
-      "packageName": "com.mycompany.myapp",
-      "nativeLanguage": "en"
+      "packageName": "io.github.pascalgrimaud"
     },
-    "jhipsterVersion": "4.5.4",
+    "jhipsterVersion": "5.4.2",
+    "applicationType": "monolith",
     "baseName": "jhipster",
-    "packageName": "com.mycompany.myapp",
-    "packageFolder": "com/mycompany/myapp",
+    "packageName": "io.github.pascalgrimaud",
+    "packageFolder": "io/github/pascalgrimaud",
     "serverPort": "8080",
     "authenticationType": "jwt",
-    "hibernateCache": "ehcache",
-    "clusteredHttpSession": false,
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
     "websocket": false,
     "databaseType": "sql",
     "devDatabaseType": "h2Disk",
@@ -20,18 +20,16 @@
     "messageBroker": false,
     "serviceDiscoveryType": false,
     "buildTool": "maven",
-    "enableSocialSignIn": false,
-    "jwtSecretKey": "b356b46bbdfd1e00d7c665220864bddd77f56bd1",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "YzE5N2I3ZjMxMTliNzJkNmUwOWZjZTI0OGE2MDUzYzY0M2VlNTFkMjQ4MDI2MDc3ZWJjMjdiYmM1MDZiYWM1ZDU2YTNjMTgxZDRlMjMwMTM3ZTc3MDk4ZjNhZGJkN2VjMjQzYTAxNzA2N2Y2MGZiMzUyNDNkZDA0NGRkNzE0NDA=",
     "clientFramework": "angularX",
-    "useSass": false,
-    "clientPackageManager": "yarn",
-    "applicationType": "monolith",
+    "useSass": true,
+    "clientPackageManager": "npm",
     "testFrameworks": [
       "gatling",
       "protractor"
     ],
     "jhiPrefix": "jhi",
-    "enableTranslation": false,
-    "nativeLanguage": "en"
+    "enableTranslation": false
   }
 }

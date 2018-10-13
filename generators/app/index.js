@@ -8,7 +8,7 @@ const packagejs = require('../../package.json');
 
 const ANGULAR_VERSION = '6.0.0';
 const CHARTJS_VERSION = '2.7.2';
-const PRIMENG_VERSION = '6.0.1';
+const PRIMENG_VERSION = '6.1.4';
 
 module.exports = class extends BaseGenerator {
     constructor(args, opts) {
