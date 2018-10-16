@@ -40,7 +40,7 @@ script:
     - npm install
     - npm link generator-jhipster-primeng-charts
     - yo jhipster-primeng-charts --default --force
-    - npm lint
+    - npm run lint
     - npm run webpack:build
     - ./mvnw &
     - sleep 60
