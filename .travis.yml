@@ -20,6 +20,7 @@ cache:
 env:
     global:
         - SPRING_OUTPUT_ANSI_ENABLED=ALWAYS
+        - JHI_DISABLE_WEBPACK_LOGS=true
 before_install:
     - java -version
     - sudo /etc/init.d/mysql stop
