@@ -29,9 +29,9 @@ describe('dashboard', () => {
     it('should load BarChart', async () => {
         await element(by.css('[routerLink="barchart"]')).click();
         <%_ if (enableTranslation) { _%>
-        const expect1 = /dashboard.barchart.home.title/;
+        const expect1 = 'dashboard.barchart.home.title';
         <%_ } else { _%>
-        const expect1 = /BarChart/;
+        const expect1 = 'BarChart';
         <%_ } _%>
         element.all(by.css('h2 span')).first().<%- elementGetter %>.then(value => {
             expect(value).to.eq(expect1);
@@ -41,9 +41,9 @@ describe('dashboard', () => {
     it('should load DoughnutChart', async () => {
         await element(by.css('[routerLink="doughnutchart"]')).click();
         <%_ if (enableTranslation) { _%>
-        const expect1 = /dashboard.doughnutchart.home.title/;
+        const expect1 = 'dashboard.doughnutchart.home.title';
         <%_ } else { _%>
-        const expect1 = /DoughnutChart/;
+        const expect1 = 'DoughnutChart';
         <%_ } _%>
         element.all(by.css('h2 span')).first().<%- elementGetter %>.then(value => {
             expect(value).to.eq(expect1);
@@ -53,9 +53,9 @@ describe('dashboard', () => {
     it('should load LineChart', async () => {
         await element(by.css('[routerLink="linechart"]')).click();
         <%_ if (enableTranslation) { _%>
-        const expect1 = /dashboard.linechart.home.title/;
+        const expect1 = 'dashboard.linechart.home.title';
         <%_ } else { _%>
-        const expect1 = /LineChart/;
+        const expect1 = 'LineChart';
         <%_ } _%>
         element.all(by.css('h2 span')).first().<%- elementGetter %>.then(value => {
             expect(value).to.eq(expect1);
@@ -65,9 +65,9 @@ describe('dashboard', () => {
     it('should load PieChart', async () => {
         await element(by.css('[routerLink="piechart"]')).click();
         <%_ if (enableTranslation) { _%>
-        const expect1 = /dashboard.piechart.home.title/;
+        const expect1 = 'dashboard.piechart.home.title';
         <%_ } else { _%>
-        const expect1 = /PieChart/;
+        const expect1 = 'PieChart';
         <%_ } _%>
         element.all(by.css('h2 span')).first().<%- elementGetter %>.then(value => {
             expect(value).to.eq(expect1);
@@ -77,9 +77,9 @@ describe('dashboard', () => {
     it('should load PolarAreaChart', async () => {
         await element(by.css('[routerLink="polarareachart"]')).click();
         <%_ if (enableTranslation) { _%>
-        const expect1 = /dashboard.polarareachart.home.title/;
+        const expect1 = 'dashboard.polarareachart.home.title';
         <%_ } else { _%>
-        const expect1 = /PolarAreaChart/;
+        const expect1 = 'PolarAreaChart';
         <%_ } _%>
         element.all(by.css('h2 span')).first().<%- elementGetter %>.then(value => {
             expect(value).to.eq(expect1);
@@ -89,9 +89,9 @@ describe('dashboard', () => {
     it('should load RadarChart', async () => {
         await element(by.css('[routerLink="radarchart"]')).click();
         <%_ if (enableTranslation) { _%>
-        const expect1 = /dashboard.radarchart.home.title/;
+        const expect1 = 'dashboard.radarchart.home.title';
         <%_ } else { _%>
-        const expect1 = /RadarChart/;
+        const expect1 = 'RadarChart';
         <%_ } _%>
         element.all(by.css('h2 span')).first().<%- elementGetter %>.then(value => {
             expect(value).to.eq(expect1);
