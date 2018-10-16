@@ -9,7 +9,6 @@ if (enableTranslation) {
     elementGetter = `getAttribute('jhiTranslate')`;
 }
 _%>
-
 describe('dashboard', () => {
     let navBarPage: NavBarPage;
     let signInPage: SignInPage;
